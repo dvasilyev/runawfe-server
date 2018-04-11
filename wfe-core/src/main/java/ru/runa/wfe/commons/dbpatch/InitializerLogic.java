@@ -68,6 +68,7 @@ import ru.runa.wfe.commons.dbpatch.impl.JbpmRefactoringPatch;
 import ru.runa.wfe.commons.dbpatch.impl.NodeTypeChangePatch;
 import ru.runa.wfe.commons.dbpatch.impl.PerformancePatch401;
 import ru.runa.wfe.commons.dbpatch.impl.PermissionMappingPatch403;
+import ru.runa.wfe.commons.dbpatch.impl.RefactorPermissionsStep1;
 import ru.runa.wfe.commons.dbpatch.impl.TaskCreateLogSeverityChangedPatch;
 import ru.runa.wfe.commons.dbpatch.impl.TaskEndDateRemovalPatch;
 import ru.runa.wfe.commons.dbpatch.impl.TaskOpenedByExecutorsPatch;
@@ -160,9 +161,10 @@ public class InitializerLogic implements ApplicationListener<ContextRefreshedEve
         patches.add(EmptyPatch.class);
         patches.add(AddTokenMessageSelectorPatch.class);
         patches.add(AddSubprocessBindingDatePatch.class);
+        patches.add(RefactorPermissionsStep1.class);
         patches.add(AddTransactionalBotSupport.class);
         dbPatches = Collections.unmodifiableList(patches);
-    };
+    }
 
     @Autowired
     private ConstantDAO constantDAO;

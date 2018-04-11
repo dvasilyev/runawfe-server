@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import ru.runa.wfe.execution.logic.IProcessExecutionListener;
 import ru.runa.wfe.lang.NodeType;
+import ru.runa.wfe.security.ApplicablePermissions;
 import ru.runa.wfe.security.Permission;
 import ru.runa.wfe.security.SecuredObjectType;
 
@@ -338,11 +339,11 @@ public class SystemProperties {
      */
     public static List<Permission> getDefaultPermissions(SecuredObjectType securedObjectType) {
         List<Permission> result = new ArrayList<>();
-        List<Permission> allPermissions = securedObjectType.getAllPermissions();
+        List<Permission> applicablePermissions = ApplicablePermissions.list(securedObjectType);
         List<String> permissionNames = RESOURCES.getMultipleStringProperty(securedObjectType.toString().toLowerCase() + ".default.permissions");
         for (String permissionName : permissionNames) {
             Permission foundPermission = null;
-            for (Permission permission : allPermissions) {
+            for (Permission permission : applicablePermissions) {
                 if (permission.getName().equals(permissionName)) {
                     foundPermission = permission;
                     break;
