@@ -29,7 +29,7 @@ import ru.runa.wfe.commons.SystemProperties;
 
 /**
  * Created on 30.09.2004
- * 
+ *
  */
 public class WebResources {
     private static final PropertyResources RESOURCES = new PropertyResources("web.properties");

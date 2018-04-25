@@ -56,7 +56,7 @@ public class UserTypeMap extends HashMap<String, Object> {
                 // in case of empty local user map
                 put(attributeDefinition.getName(), localValue);
             } else {
-                if (override || localValue == null || (targetValue != null && Objects.equal(localValue, attributeDefinition.getDefaultValue()))) {
+                if (override || localValue == null || targetValue != null && Objects.equal(localValue, attributeDefinition.getDefaultValue())) {
                     put(attributeDefinition.getName(), targetValue);
                 }
             }
@@ -109,6 +109,7 @@ public class UserTypeMap extends HashMap<String, Object> {
 
     private UserTypeMap buildUserTypeVariable(String prefix, VariableDefinition variableDefinition) {
         UserTypeMap userTypeMap = new UserTypeMap(variableDefinition);
+        UserTypeMap defaultValue = (UserTypeMap) variableDefinition.getDefaultValue();
         for (VariableDefinition attributeDefinition : variableDefinition.getUserType().getAttributes()) {
             String attributeName = prefix + UserType.DELIM + attributeDefinition.getName();
             Object value = super.get(attributeName);
@@ -116,7 +117,12 @@ public class UserTypeMap extends HashMap<String, Object> {
                 value = buildUserTypeVariable(attributeName, attributeDefinition);
             }
             if (value == null) {
-                value = attributeDefinition.getDefaultValue();
+                if (defaultValue != null) {
+                    value = defaultValue.get(attributeDefinition.getName());
+                }
+                if (value == null) {
+                    value = attributeDefinition.getDefaultValue();
+                }
             }
             userTypeMap.put(attributeDefinition.getName(), value);
         }
