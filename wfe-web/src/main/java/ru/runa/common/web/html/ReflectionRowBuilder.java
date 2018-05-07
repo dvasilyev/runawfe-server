@@ -72,14 +72,14 @@ public class ReflectionRowBuilder implements RowBuilder {
     private final String basePartOfUrlToObject;
     private CssClassStrategy cssClassStrategy;
 
-    public ReflectionRowBuilder(List<?> items, BatchPresentation batchPresentation, PageContext pageContext, String actionUrl,
-            String returnAction, String idPropertyName, TDBuilder[] builders) {
+    public ReflectionRowBuilder(List<?> items, BatchPresentation batchPresentation, PageContext pageContext, String actionUrl, String returnAction,
+            String idPropertyName, TDBuilder[] builders) {
         this(items, batchPresentation, pageContext, actionUrl, returnAction, builders);
         itemUrlStrategy = new DefaultItemUrlStrategy(idPropertyName, pageContext);
     }
 
-    public ReflectionRowBuilder(List<?> items, BatchPresentation batchPresentation, PageContext pageContext, String actionUrl,
-            String returnAction, ItemUrlStrategy itemUrlStrategy, TDBuilder[] builders) {
+    public ReflectionRowBuilder(List<?> items, BatchPresentation batchPresentation, PageContext pageContext, String actionUrl, String returnAction,
+            ItemUrlStrategy itemUrlStrategy, TDBuilder[] builders) {
         this(items, batchPresentation, pageContext, actionUrl, returnAction, builders);
         this.itemUrlStrategy = itemUrlStrategy;
     }
@@ -335,7 +335,7 @@ public class ReflectionRowBuilder implements RowBuilder {
                     && ConfirmationPopupHelper.getInstance().isEnabled(ConfirmationPopupHelper.START_PROCESS_PARAMETER)
                     || ConfirmationPopupHelper.getInstance().isEnabled(ConfirmationPopupHelper.START_PROCESS_FORM_PARAMETER)) {
                 Interaction interaction = Delegates.getDefinitionService().getStartInteraction(getUser(), pid);
-                if (!(interaction.hasForm() || interaction.getOutputTransitionNames().size() > 1)) {
+                if (!(interaction.hasForm() || interaction.getOutputTransitions().size() > 1)) {
                     String actionParameter = ConfirmationPopupHelper.START_PROCESS_FORM_PARAMETER;
                     return ConfirmationPopupHelper.getInstance().getConfirmationPopupCodeHTML(actionParameter, getPageContext());
                 }

@@ -121,6 +121,7 @@ public class BpmnXmlReader {
     private static final String TYPE = "type";
     private static final String ACTION_HANDLER = "actionHandler";
     private static final String EVENT_TYPE = "eventType";
+    private static final String COLOR = "color";
     private static final String GLOBAL = "global";
 
     @Autowired
@@ -418,6 +419,7 @@ public class BpmnXmlReader {
             transition.setName(name);
             transition.setDescription(element.elementTextTrim(DOCUMENTATION));
             transition.setProcessDefinition(processDefinition);
+            transition.setColor(parseExtensionProperties(element).get(COLOR));
             // add the transition to the node
             source.addLeavingTransition(transition);
             // set destinationNode of the transition
