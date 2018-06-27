@@ -18,6 +18,7 @@
 package ru.runa.wfe.bot;
 
 import com.google.common.base.Objects;
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,21 +27,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import ru.runa.wfe.security.SecuredObjectBase;
-import ru.runa.wfe.security.SecuredObjectType;
 
 @Entity
 @Table(name = "BOT_STATION")
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BotStation extends SecuredObjectBase {
+public class BotStation implements Serializable {
     private static final long serialVersionUID = 1L;
-    public static final BotStation INSTANCE = new BotStation(0L);
 
     private Long id;
     private Long version;
@@ -66,13 +63,6 @@ public class BotStation extends SecuredObjectBase {
         this.id = id;
     }
 
-    @Transient
-    @Override
-    public SecuredObjectType getSecuredObjectType() {
-        return SecuredObjectType.BOTSTATION;
-    }
-
-    @Override
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "sequence")
     @SequenceGenerator(name = "sequence", sequenceName = "SEQ_BOT_STATION", allocationSize = 1)
